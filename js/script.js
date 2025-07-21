@@ -58,3 +58,46 @@ contactForm.addEventListener('submit', (e) => {
         alert('Please fill in all fields.');
     }
 });
+
+// Typewriter effect
+document.addEventListener('DOMContentLoaded', () => {
+    const el = document.getElementById('typewriter');
+    if (!el) return;
+    const texts = [
+        "I create beautiful and functional web applications.",
+        "I love coding and solving problems.",
+        "Let's build something amazing together!"
+    ];
+    let idx = 0, char = 0, isDeleting = false;
+    function type() {
+        let current = texts[idx];
+        el.textContent = current.substring(0, char) + (char % 2 === 0 ? "|" : "");
+        if (!isDeleting && char < current.length) {
+            char++;
+            setTimeout(type, 60);
+        } else if (isDeleting && char > 0) {
+            char--;
+            setTimeout(type, 30);
+        } else {
+            isDeleting = !isDeleting;
+            if (!isDeleting) idx = (idx + 1) % texts.length;
+            setTimeout(type, 1000);
+        }
+    }
+    type();
+});
+
+// Fade-in effect on scroll
+document.addEventListener('DOMContentLoaded', () => {
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeInOnScroll = () => {
+        fadeEls.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                el.classList.add('visible');
+            }
+        });
+    };
+    window.addEventListener('scroll', fadeInOnScroll);
+    fadeInOnScroll();
+});
